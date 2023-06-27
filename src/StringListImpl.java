@@ -2,15 +2,27 @@ import exception.InvalidIndexException;
 import exception.ItemNotFoundException;
 import exception.NullItemException;
 
+import java.util.Arrays;
+
 
 public class StringListImpl implements StringList {
     private String[] storage;
     private int size;
 
-
     public StringListImpl(int initialCapacity) {
         storage = new String[initialCapacity];
         size = 0;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("");
+        for (String el : storage) {
+            if (el != null) {
+                sb.append(el + " ");
+            }
+        }
+        return sb.toString();
     }
 
     @Override
@@ -46,7 +58,7 @@ public class StringListImpl implements StringList {
     }
 
     @Override
-    public String remote(String item) {
+    public String remove(String item) {
         validateItem(item);
         for (int i = 0; i < size; i++) {
             if (storage[i].equals(item)) {
@@ -61,7 +73,7 @@ public class StringListImpl implements StringList {
     }
 
     @Override
-    public String remote(int index) {
+    public String remove(int index) {
         validateIndex(index);
         String removedItem = storage[index];
         shiftStorageLeft(index);
@@ -149,9 +161,7 @@ public class StringListImpl implements StringList {
 
     @Override
     public String[] toArray() {
-        String[] array = new String[size];
-        System.arraycopy(storage,0,array,0,size);
-        return array;
+        return Arrays.copyOf(storage, size);
     }
 
     private void resizeArray() {

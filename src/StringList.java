@@ -5,9 +5,9 @@ public interface StringList {
 
     String set(int index, String item);
 
-    String remote(String item);
+    String remove(String item);
 
-    String remote(int index);
+    String remove(int index);
 
     boolean contains(String item);
 
